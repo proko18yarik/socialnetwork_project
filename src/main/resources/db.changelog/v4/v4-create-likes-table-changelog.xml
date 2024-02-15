@@ -1,0 +1,29 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="v4-1" author="Yaroslav Deren">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="likes"/>
+            </not>
+        </preConditions>
+        <createTable tableName="likes">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_nickname" type="varchar(50)">
+            </column>
+            <column name="created" type="timestamp without time zone">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="post_id" type="bigserial">
+                <constraints foreignKeyName="post_id_fk_like" referencedTableName="posts" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>
